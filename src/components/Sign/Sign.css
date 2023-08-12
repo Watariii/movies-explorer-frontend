@@ -1,0 +1,141 @@
+.sign {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.sign__top {
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  margin-top: 70px;
+}
+
+.sign__title {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 40px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.sign__bottom {
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.sign__bottom_type_register {
+  margin-top: 135px;
+}
+
+.sign__bottom_type_login {
+  margin-top: 202px;
+}
+
+.sign__button {
+  width: 100%;
+  min-height: 45px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: #2be080;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.sign__button:hover {
+  opacity: 0.8;
+}
+
+.sign__text {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-top: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.sign__link {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  color: #2be080;
+}
+
+.sign__link:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .sign__top {
+    margin-top: 232px;
+  }
+}
+
+@media (max-width: 520px) {
+
+  .sign__top {
+    width: 81.25%;
+    align-items: center;
+    margin-top: 56px;
+  }
+
+  .sign__title {
+    display: inline;
+    margin-top: 50px;
+    text-align: center;
+
+  }
+
+  .sign__bottom {
+    width: 81.25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    margin-bottom: 30px; ;
+    padding: 0;
+  }
+
+  .sign__bottom_type_register {
+    margin-top: 221px;
+  }
+  
+  .sign__bottom_type_login {
+    margin-top: 290px;
+  }
+
+  .sign__button {
+    font-size: 12px;
+  }
+
+  .sign__text {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  .sign__link {
+    font-size: 12px;
+  }
+}

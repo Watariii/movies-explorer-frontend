@@ -1,0 +1,176 @@
+.about-project {
+  width: 100%;
+  min-height: 606px;
+  margin: 0 auto;
+}
+.about-project__title {
+  width: 89.0625%;
+  margin: 0 auto;
+  padding: 0;
+  padding-top: 112px;
+  padding-bottom: 23px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -1px;
+  border-bottom: 1px solid #000000;
+}
+
+.about-project__two-columns {
+  width: 89.0625%;
+  display: flex;
+  flex-direction: row;
+  gap: 52px;
+  margin: 0 auto;
+  margin-top: 70px;
+}
+
+.about-project__timeline {
+  width: 89.0625%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 110px;
+}
+
+.about-project__backend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.about-project__backend-week {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 228px;
+  width: 17.8125vw;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: #2be080;
+}
+
+.about-project__work {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.about-project__frontend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.about-project__frontend-week {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 912px;
+  width: 71.25vw;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  .about-project {
+    min-height: 585px;
+  }
+
+  .about-project__title {
+    width: 86.979166%;
+    padding-top: 92px;
+  }
+  .about-project__two-columns {
+    width: 86.979166%;
+    gap: 35px;
+  }
+
+  .about-project__timeline {
+    width: 86.979166%;
+    margin-top: 93px;
+  }
+
+  .about-project__work {
+    font-weight: 400;
+  }
+
+  .about-project__backend-week {
+    max-width: 140px;
+    width: 18.2291666vw;
+  }
+
+  .about-project__frontend-week {
+    max-width: 528px;
+    width: 68.75vw;
+  }
+}
+
+@media (max-width: 425px) {
+  .about-project {
+    min-height: 641px;
+  }
+
+  .about-project__title {
+    width: 88.75%;
+    padding-top: 72px;
+    padding-bottom: 28px;
+    font-size: 18px;
+  }
+  .about-project__two-columns {
+    width: 88.75%;
+    flex-direction: column;
+    gap: 56px;
+    margin-top: 60px;
+  }
+
+  .about-project__timeline {
+    width: 88.75%;
+    margin-top: 60px;
+    justify-content: space-between;
+  }
+
+  .about-project__backend {
+    gap: 10px;
+  }
+
+  .about-project__frontend {
+    gap: 10px;
+  }
+
+  .about-project__work {
+    font-size: 11px;
+  }
+
+  .about-project__backend-week {
+    max-width: 100px;
+    width: 32vw;
+    font-size: 11px;
+  }
+
+  .about-project__frontend-week {
+    max-width: 184px;
+    width: 57.5vw;
+    font-size: 11px;
+  }
+}
+
