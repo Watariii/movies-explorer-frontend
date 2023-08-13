@@ -1,0 +1,157 @@
+.text-block {
+  display: flex;
+  margin: 0;
+}
+
+.text-block_type_about-project {
+  flex-direction: column;
+  gap: 27px;
+  justify-content: flex-start;
+}
+
+.text-block_type_techs {
+  max-width: 460px;
+  flex-direction: column;
+  gap: 29px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 90px;
+}
+
+.text-block_type_about-me {
+  max-width: 600px;
+  flex-direction: column;
+  gap: 19px;
+  justify-content: start;
+}
+
+.text-block__header {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.text-block__header_type_about-project {
+  font-size: 20px;
+  letter-spacing: -0.8px;
+}
+
+.text-block__header_type_techs {
+  font-size: 50px;
+  text-align: center;
+  letter-spacing: -2px;
+}
+
+.text-block__header_type_about-me {
+  font-size: 50px;
+  letter-spacing: -2px;
+}
+
+.text-block__paragraph {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.text-block__paragraph_type_about-project {
+  text-align: left;
+  line-height:1.4;
+}
+
+.text-block__paragraph_type_techs {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+
+.text-block__paragraph_type_about-me {
+  text-align: left;
+  margin-top: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .text-block_type_about-project {
+    gap: 26px;
+  }
+
+  .text-block_type_techs {
+    gap: 24px;
+    margin-top: 80px;
+  }
+
+  .text-block_type_about-me {
+    max-width: 348px;
+    gap: 12px;
+  }
+
+  .text-block__header_type_techs {
+    width: 86.979166%;
+    margin: 0 auto;
+  }
+
+  .text-block__header_type_about-me {
+    font-size: 40px;
+  }
+
+  .text-block__paragraph_type_about-project {
+    font-size: 12px;
+  }
+
+  .text-block__paragraph_type_techs {
+    width: 86.979166%;
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
+  .text-block__paragraph_type_about-me {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 425px) {
+  .text-block_type_about-project {
+    gap: 16px;
+  }
+
+  .text-block_type_techs {
+    gap: 28px;
+    margin-top: 60px;
+  }
+
+  .text-block_type_about-me {
+    gap: 21px;
+  }
+
+  .text-block__header_type_techs {
+    font-size: 30px;
+    letter-spacing: -1px;
+  }
+
+  .text-block__header_type_about-project {
+    letter-spacing: -1.9px;
+  }
+
+  .text-block__header_type_about-me {
+    font-size: 30px;
+  }
+
+  .text-block__paragraph_type_about-project {
+    font-size: 11px;
+  }
+
+  .text-block__paragraph_type_techs {
+    font-size: 11px;
+  }
+
+  .text-block__paragraph_type_about-me {
+    font-size: 11px;
+    margin-top: 0;
+  }
+}

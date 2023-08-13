@@ -1,0 +1,28 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 41px;
+  margin: 0 auto;
+  width: 89.0625%;
+  min-height: 222px;
+}
+
+@media (max-width: 768px) {
+  .search {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 37px;
+    width: 92.1875%;
+    min-height: 232px;
+  }
+}
+
+@media (max-width: 320px) {
+  .search {
+    gap: 44px;
+    width: 93.75%;
+    min-height: 226px;
+  }
+}

@@ -1,0 +1,275 @@
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  grid-template-rows: auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.navigation_logged-in {
+  grid-template-columns: 54px 144px minmax(97px, 100vw);
+  justify-items: start;
+  gap: 16px;
+}
+
+.navigation__main {
+  display: none;
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.navigation__main:hover {
+  opacity: 0.7;
+}
+
+.navigation__films {
+  display: none;
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.navigation__films:hover {
+  opacity: 0.7;
+}
+
+.navigation__films_logged-in {
+  display: block;
+  justify-self: flex-start;
+}
+
+.navigation__saved {
+  display: none;
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.navigation__saved:hover {
+  opacity: 0.7;
+}
+
+.navigation__saved_logged-in {
+  display: block;
+  justify-self: flex-start;
+}
+
+.navigation__account {
+  display: none;
+  width: 100px;
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.navigation__account:hover {
+  opacity: 0.7;
+}
+
+.navigation__account_logged-in {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  justify-self: end;
+}
+
+.navigation__account-icon {
+  margin: 0;
+  padding: 0;
+  background-image: url(../../images/navigation__account-icon.svg);
+  background-repeat: no-repeat;
+  background-color: #f9f9f9;
+  background-position: center;
+  border-radius: 4px;
+  width: 26px;
+  height: 30px;
+}
+
+.navigation__registration {
+  text-decoration: none;
+  color: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.navigation__registration:hover {
+  opacity: 0.8;
+}
+
+.navigation__registration_logged-in {
+  display: none;
+}
+
+.navigation__login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76px;
+  height: 32px;
+  text-decoration: none;
+  color: black;
+  background-color: #2be080;
+  border-radius: 3px;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.navigation__login:hover {
+  opacity: 0.8;
+}
+
+.navigation__login_logged-in {
+  display: none;
+}
+
+
+
+.active {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  
+  .navigation_logged-in {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr) minmax(118px, 100vh);
+    gap: 25px;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    right: -67.708vw;
+    width: 67.708vw;
+    height: 100vh;
+    transition: 0.3s ease-in-out;
+  }
+
+  .navigation_opened {
+    right: 0;
+    z-index: 2;
+  }
+  
+  .navigation__main {
+    margin-top: 159px;
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 4px;
+  }
+
+  .navigation__main_logged-in {
+    display: block;
+    justify-self: center;
+  }
+
+  .navigation__films {
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 4px;
+  }
+
+  .navigation__films_logged-in {
+    justify-self: center;
+  }
+
+
+  .navigation__saved {
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 4px;
+  }
+
+  .navigation__saved_logged-in {
+    justify-self: center;
+  }
+
+  .navigation__account {
+    font-weight: 500;
+    padding-bottom: 4px;
+  }
+
+  .navigation__account_logged-in {
+    justify-self: center;
+    align-self: end;
+    margin-bottom: 89px;
+  }
+
+  .active {
+    border-bottom: 2px solid black;
+  }
+
+  .navigation__button_opened {
+    background-image: url(../../images/navigation__button_opened.svg);
+    right: 23px;
+    top: 22px;
+    width: 31px;
+    height: 31px;
+    position: fixed;
+  }
+}
+
+@media (max-width: 425px) {
+  .navigation {
+    gap: 6px;
+    justify-items: end;
+  }
+
+  .navigation_logged-in {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr) minmax(0, 100vh);
+    gap: 17px;
+    position: fixed;
+    top: 0px;
+    right: -100vw;
+    width: 100vw;
+  }
+
+  .navigation_opened {
+    right: 0;
+  }
+
+  .navigation__main {
+    margin-top: 144px;
+    padding-bottom: 9px;
+  }
+
+  .navigation__films {
+    padding-bottom: 9px;
+  }
+
+  .navigation__saved {
+    padding-bottom: 9px;
+  }
+
+  .navigation__account {
+    padding-bottom: 9px;
+  }
+
+  .navigation__account_logged-in {
+    margin-bottom: 40px;
+  }
+
+  .navigation__registration {
+    font-size: 10px;
+  }
+
+  .navigation__login {
+    font-size: 10px;
+    width: 54px;
+    height: 26px;
+  }
+}
