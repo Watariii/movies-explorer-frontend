@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 function Sign({ children, title, buttonText, text, textLink, link, type, handlelogin }) {
   return (
     <section className="sign">
       <div className="sign__top">
-        <div className="header__logo"></div>
+        <Logo/>
         <h1 className="sign__title">{title}</h1>
       </div>
       {children}

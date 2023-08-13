@@ -8,7 +8,7 @@
 .movies-card__info {
   margin: 0;
   padding: 0;
-  padding: 14px 14px 3px 14px;
+  padding: 14px 14px 13px 14px;
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 10px 26px;
@@ -40,13 +40,11 @@
   margin: 0;
   padding: 0;
   grid-column-start: 2;
-  grid-column-end: 3;
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 3;
   align-self: center;
   width: 30px;
   height: 30px;
-  background-image: url(../../images/movies-card__button.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: auto;
@@ -54,10 +52,19 @@
   border: none;
   border-radius: 36px;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.movies-card__button_type_movies {
+  background-image: url(../../images/movies-card__button.svg);
+}
+
+.movies-card__button_type_saved-movies {
+  background-image: url(../../images/movies-card__button_type_delete.svg);
 }
 
 .movies-card__button:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .movies-card__button_active {

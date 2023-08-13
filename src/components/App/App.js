@@ -12,21 +12,25 @@ import NotFound from "../NotFound/NotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
-
+  
   const [loggedIn, setLoggedIn] = useState(false);
   const [isNavBarOpen, setIsNavBarOpen] = useState(false);
-
+  const [isActiveMoviesCard, setIsActiveMoviesCard] = useState(false);
+  
   const navigate = useNavigate();
-
+  
   function handleLogin() {
     setLoggedIn(!loggedIn);
     navigate("/movies");
   }
-
+  
   function handleOpenNavBar() {
     setIsNavBarOpen(!isNavBarOpen);
   }
- 
+  
+  function handleActiveMoviesCard() {
+    setIsActiveMoviesCard(!isActiveMoviesCard);
+  }
   return (
     <Layout>
       <Routes>
@@ -48,6 +52,8 @@ function App() {
               loggedIn={loggedIn}
               isNavBarOpen={isNavBarOpen}
               handleOpenNavBar={handleOpenNavBar}
+              isActiveMoviesCard={isActiveMoviesCard}
+              handleActiveMoviesCard={handleActiveMoviesCard}
             />
           }
         />

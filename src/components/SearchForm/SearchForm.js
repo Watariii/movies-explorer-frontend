@@ -8,7 +8,7 @@ function SearchFrom() {
         placeholder="Фильм"
       >
       </input>
-        <button className="search-from__button" aria-label="поиск"> </button>
+        <button type="submit" className="search-from__button" aria-label="поиск"> </button>
     </form>
   );
 }

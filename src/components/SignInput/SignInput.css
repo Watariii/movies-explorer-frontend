@@ -1,3 +1,10 @@
+.sign-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
 .sign-input__label {
   width: 100%;
   margin: 0;
@@ -9,7 +16,7 @@
   color: #a0a0a0;
 }
 
-.sign-input {
+.sign-input__input {
   width: 100%;
   margin: 0;
   margin-top: 5px;
@@ -23,11 +30,11 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.sign-input:focus {
+.sign-input__input:focus {
   border-bottom: 1px solid #2be080;
 }
 
-.sign-input-error {
+.sign-input__error {
   display: inline-block;
   min-height: 12px;
   width: 100%;
@@ -47,7 +54,7 @@
 
   }
 
-  .sign-input-error {
+  .sign-input__error {
     margin-top: 7px;
   }
 }

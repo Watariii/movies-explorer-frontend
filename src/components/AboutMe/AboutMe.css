@@ -1,7 +1,7 @@
 .about-me {
   width: 100%;
-  min-height: 1079px;
   margin: 0 auto;
+  margin-bottom: 80px;
 }
 .about-me__title {
   width: 89.0625%;
@@ -60,7 +60,7 @@
 
 @media (max-width: 768px) {
     .about-me {
-        min-height: 994px;
+        margin-bottom: 46px
       }
       .about-me__title {
         width: 86.979166%;
@@ -88,7 +88,7 @@
 
 @media (max-width: 520px) {
     .about-me {
-        min-height: 1198px;
+        margin-bottom: 20px;
       }
       .about-me__title {
         width: 91.25%;

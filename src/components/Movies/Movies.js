@@ -4,21 +4,35 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Devider from "../Devider/Devider";
 import Footer from "../Footer/Footer";
 
-function Movies({ loggedIn, isNavBarOpen, handleOpenNavBar }) {
+function Movies({
+  loggedIn,
+  isNavBarOpen,
+  handleOpenNavBar,
+  isActiveMoviesCard,
+  handleActiveMoviesCard,
+}) {
   return (
-    <main className={`movies ${isNavBarOpen ? "movies_opened" : ""}`}>
+    <>
       <Header
         loggedIn={loggedIn}
         isNavBarOpen={isNavBarOpen}
         handleOpenNavBar={handleOpenNavBar}
       />
-      <Search />
-      <MoviesCardList />
-      <Devider>
-        <button className="devider__button" aria-label="ещё">Ещё</button>
-      </Devider>
+      <main className={`movies ${isNavBarOpen ? "movies_opened" : ""}`}>
+        <Search />
+        <MoviesCardList
+          type="movies"
+          isActiveMoviesCard={isActiveMoviesCard}
+          handleActiveMoviesCard={handleActiveMoviesCard}
+        />
+        <Devider type="movies">
+          <button type="button" className="devider__button" aria-label="ещё">
+            Ещё
+          </button>
+        </Devider>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

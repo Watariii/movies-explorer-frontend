@@ -6,17 +6,21 @@ import Footer from "../Footer/Footer";
 
 function SavedMovies({ loggedIn, isNavBarOpen, handleOpenNavBar }) {
   return (
-    <main className={`saved-movies ${isNavBarOpen ? "saved-movies_opened" : ""}`}>
+    <>
       <Header
         loggedIn={loggedIn}
         isNavBarOpen={isNavBarOpen}
         handleOpenNavBar={handleOpenNavBar}
       />
-      <Search />
-      <MoviesCardList />
-      <Devider />
+      <main
+        className={`saved-movies ${isNavBarOpen ? "saved-movies_opened" : ""}`}
+      >
+        <Search />
+        <MoviesCardList type="saved-movies" />
+        <Devider type="saved-movies" />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

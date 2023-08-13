@@ -1,16 +1,12 @@
 function SignInput({ label, type }) {
-
   return (
-    <>
-      <label
-        className="sign-input__label"
-        htmlFor={type}
-      >
+    <div className="sign-input">
+      <label className="sign-input__label" htmlFor={type}>
         {label}
       </label>
       <input
         autoComplete="off"
-        className="sign-input"
+        className="sign-input__input"
         type={type}
         placeholder={label}
         id={type}
@@ -18,8 +14,10 @@ function SignInput({ label, type }) {
         maxLength="30"
         required
       />
-      <span id={type} className="sign-input-error">Что то пошло не так...</span>
-    </>
+      <span id={`${type}-error`} className="sign-input__error">
+        Что то пошло не так...
+      </span>
+    </div>
   );
 }
 
