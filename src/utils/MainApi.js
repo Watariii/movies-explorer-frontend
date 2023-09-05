@@ -1,5 +1,5 @@
 const apiConfig = {
-    url: "https://api.watari.nomoredomains.xyz",
+    url: "http://localhost:3001",
     headers: {
         "content-type": "application/json",
     },
@@ -40,7 +40,7 @@ class MainApi {
     }).then(this._checkStatus());
   }
 
-  addSaveMovie(newMovie) {
+  saveMovie(newMovie) {
     return fetch(this._urlMovies, {
       method: "POST",
       headers: this._headers,

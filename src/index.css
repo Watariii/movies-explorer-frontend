@@ -21,6 +21,7 @@
 @import url(./components/Search/Search.css);
 @import url(./components/SearchForm/SearchForm.css);
 @import url(./components/Preloader/Preloader.css);
+@import url(./components/SearchResultMessage/SearchResultMessage.css);
 @import url(./components/FilterCheckbox/FilterCheckbox.css);
 @import url(./components/MoviesCardList/MoviesCardList.css);
 @import url(./components/MoviesCard/MoviesCard.css);

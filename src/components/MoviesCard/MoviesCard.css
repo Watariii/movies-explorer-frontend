@@ -95,6 +95,12 @@
   }
 }
 
+@media (max-width: 580px) {
+  .movies-card__info {
+    column-gap: 10px;
+  }
+}
+
 @media (max-width: 425px) {
   .movies-card {
     max-width: 300px;

@@ -34,6 +34,9 @@
   border-bottom: 1px solid #2be080;
 }
 
+.sign-input__input:invalid {
+  color: #ee3465;
+}
 .sign-input__error {
   display: inline-block;
   min-height: 12px;

@@ -14,7 +14,6 @@ function Header({
       <Navigation
         loggedIn={loggedIn}
         isNavBarOpen={isNavBarOpen}
-        handleOpenNavBar={handleOpenNavBar}
       />
       <button
         type="button"

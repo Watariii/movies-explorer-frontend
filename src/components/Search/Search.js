@@ -3,7 +3,7 @@ import SearchFrom from "../SearchForm/SearchForm";
 function Search({
   inputText,
   handleChangeInputText,
-  handleSubmitFoundMovies,
+  handleSubmitFound,
   isActiveCheckbox,
   handleActiveCheckbox,
 }) {
@@ -12,7 +12,7 @@ function Search({
       <SearchFrom
         inputText={inputText}
         handleChangeInputText={handleChangeInputText}
-        handleSubmitFoundMovies={handleSubmitFoundMovies}
+        handleSubmitFound={handleSubmitFound}
       />
       <FilterCheckbox
         isActiveCheckbox={isActiveCheckbox}

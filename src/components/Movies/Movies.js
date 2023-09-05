@@ -4,22 +4,27 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Devider from "../Devider/Devider";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
+import SearchResultMessage from "../SearchResultMessage/SearchResultMessage";
 
 function Movies({
   loggedIn,
   isNavBarOpen,
   handleOpenNavBar,
-  isSavedMoviesCard,
-  handleSavedMoviesCard,
-  inputText,
-  handleChangeInputText,
+  inputTextMovie,
+  handleChangeInputTextMovie,
   handleSubmitFoundMovies,
   moreMovies,
   movies,
   isLoading,
   isHideMoreButton,
-  isActiveCheckbox,
-  handleActiveCheckbox,
+  isActiveCheckboxMovie,
+  handleActiveCheckboxMovie,
+  onMessageResult,
+  isMessageResultOpen,
+  handleSaveMovie,
+  checkSavingMovie,
+  onSearchResultMessage,
+  isOpenSearchResultMessage,
 }) {
   return (
     <>
@@ -30,24 +35,34 @@ function Movies({
       />
       <main className={`movies ${isNavBarOpen ? "movies_opened" : ""}`}>
         <Search
-          inputText={inputText}
-          handleChangeInputText={handleChangeInputText}
-          handleSubmitFoundMovies={handleSubmitFoundMovies}
-          isActiveCheckbox={isActiveCheckbox}
-          handleActiveCheckbox={handleActiveCheckbox}
+          inputText={inputTextMovie}
+          handleChangeInputText={handleChangeInputTextMovie}
+          handleSubmitFound={handleSubmitFoundMovies}
+          isActiveCheckbox={isActiveCheckboxMovie}
+          handleActiveCheckbox={handleActiveCheckboxMovie}
         />
         <MoviesCardList
           type="movies"
-          isSavedMoviesCard={isSavedMoviesCard}
-          handleSavedMoviesCard={handleSavedMoviesCard}
           movies={movies}
+          handleSaveMovie={handleSaveMovie}
+          checkSavingMovie={checkSavingMovie}
         />
-        <Preloader isLoading={isLoading} />
-        <Devider type="movies" >
+        <SearchResultMessage
+          onSearchResultMessage={onSearchResultMessage}
+          isOpenSearchResultMessage={isOpenSearchResultMessage}
+        />
+        <Preloader
+          isLoading={isLoading}
+          onMessageResult={onMessageResult}
+          isMessageResultOpen={isMessageResultOpen}
+        />
+        <Devider type="movies">
           <button
             onClick={moreMovies}
             type="button"
-            className={`devider__button ${isHideMoreButton ? "devider__button_hide" : "" }`}
+            className={`devider__button ${
+              isHideMoreButton ? "devider__button_hide" : ""
+            }`}
             aria-label="ещё"
           >
             Ещё

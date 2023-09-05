@@ -1,11 +1,12 @@
-function SearchFrom({inputText, handleChangeInputText, handleSubmitFoundMovies }) {
+function SearchFrom({inputText, handleChangeInputText, handleSubmitFound }) {
   
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSubmitFoundMovies();
+    handleSubmitFound();
   }
 
   return (
+    // если сделать вот так <form className="search-from" onChange={handleSubmit}>, то будет круто
     <form className="search-from">
       <input
         className="search-from__input"

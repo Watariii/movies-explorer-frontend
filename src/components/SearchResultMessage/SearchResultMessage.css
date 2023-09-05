@@ -1,0 +1,17 @@
+.searchResultMessage {
+  display: none;
+}
+
+.searchResultMessage_opened {
+  display: flex;
+  justify-content: center;
+}
+
+.searchResultMessage__text {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #aaaaaa;
+
+}
