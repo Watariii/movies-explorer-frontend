@@ -14,7 +14,6 @@ import NotFound from "../NotFound/NotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 import { getMovies, url } from "../../utils/MoviesApi";
-import { register, authorize, logOut } from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -295,7 +294,8 @@ function App() {
   //_______________________________________________________________________________
   //регистрация
   function handleRegister({ email, password, name }) {
-    register({ email, password, name })
+    mainApi
+      .register({ email, password, name })
       .then(() => {
         setFormValue({ email: "", password: "", name: "" });
         handleLogin({ email, password });
@@ -314,7 +314,8 @@ function App() {
 
   //авторизация
   function handleLogin({ email, password }) {
-    authorize({ email, password })
+    mainApi
+      .authorize({ email, password })
       .then(() => {
         setFormValue({ email: "", password: "" });
         localStorage.setItem("token", true);
@@ -345,9 +346,13 @@ function App() {
     localStorage.clear();
     setOnSearchResultMessage("");
     setIsOpenSearchResultMessage(false);
+    setFilteredSavedMoviesbyText([]);
+    setFilteredSavedMoviesbyCheckbox([])
+    setPopUpInfoMessage('');
     setLoggedIn(false);
     navigate("/", { replace: true });
-    logOut()
+    mainApi
+      .logOut()
       .then((data) => {
         console.log(data);
       })
