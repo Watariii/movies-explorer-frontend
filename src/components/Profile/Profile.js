@@ -1,6 +1,7 @@
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { REGEX_EMAIL_PATTERN } from "../../utils/constants";
 
 import mainApi from "../../utils/MainApi";
 import Header from "../Header/Header";
@@ -9,8 +10,10 @@ function Profile({ loggedIn, isNavBarOpen, handleOpenNavBar, handleLogout }) {
 
   const [isEdit, setIsEdit] = useState(false);
 
+  const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+
   const [isValidForm, setIsValidForm] = useState(true);
-  const [errorsMessage, setErrorsMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const [formValue, setFormValue] = useState({
     name: currentUser.name,
@@ -21,16 +24,19 @@ function Profile({ loggedIn, isNavBarOpen, handleOpenNavBar, handleLogout }) {
 
   function handleChangeForm(evt) {
     const { name, value } = evt.target;
-    if (evt.target.closest("form").checkValidity() && !(evt.target.value === currentUser.name || evt.target.value === currentUser.email)) {
+    if (
+      evt.target.closest("form").checkValidity() &&
+      !(
+        evt.target.value === currentUser.name ||
+        evt.target.value === currentUser.email
+      )
+    ) {
       setIsValidForm(true);
     } else {
       setIsValidForm(false);
     }
 
-    // console.log(currentUser.name);
-    // console.log(currentUser.email);
-   
-    setErrorsMessage(evt.target.validationMessage);
+    setMessage(evt.target.validationMessage);
     setFormValue({ ...formValue, [name]: value });
   }
 
@@ -46,22 +52,26 @@ function Profile({ loggedIn, isNavBarOpen, handleOpenNavBar, handleLogout }) {
   }
 
   function handleEditUser(userData) {
+    setIsEdit(false);
+    setIsValidForm(false);
+    setIsSuccessMessage(false);
+    setMessage("");
+
     mainApi
       .editUserInfo({
         name: userData.name,
         email: userData.email,
       })
       .then((data) => {
-        setCurrentUser({ ...currentUser,
-          name: data.name,
-          email: data.email,
-        });
+        setCurrentUser({ ...currentUser, name: data.name, email: data.email });
         setIsEdit(false);
+        setIsSuccessMessage(true);
+        setMessage("Данные изменены.");
       })
       .catch((err) => {
         console.log(err);
         setIsEdit(true);
-        setErrorsMessage("Ошибка, что то пошло не так!");
+        setMessage("Ошибка, что то пошло не так!");
       });
   }
   return (
@@ -101,7 +111,7 @@ function Profile({ loggedIn, isNavBarOpen, handleOpenNavBar, handleLogout }) {
                 value={formValue.email}
                 type="text"
                 name="email"
-                pattern="[\dA-Za-z_.\-]{3,}@[a-z]+[.]{1}[a-z]{2,4}"
+                pattern={REGEX_EMAIL_PATTERN}
                 autoComplete="off"
                 disabled={!isEdit}
                 required
@@ -110,10 +120,14 @@ function Profile({ loggedIn, isNavBarOpen, handleOpenNavBar, handleLogout }) {
           </form>
           <p
             className={`profile__text-error ${
-              isEdit ? "profile__text-error_opened" : ""
+              isEdit
+                ? "profile__text-error_opened"
+                : isSuccessMessage
+                ? "profile__text-sucess_opened"
+                : ""
             }`}
           >
-            {errorsMessage || (isValidForm ? "" : errorMessageEditUser)}
+            {message || (isValidForm ? "" : errorMessageEditUser)}
           </p>
           <button
             type="submit"

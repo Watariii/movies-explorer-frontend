@@ -139,6 +139,20 @@
   display: block;
 }
 
+.profile__text-sucess_opened {
+  position: relative;
+  top: 205px;
+  display: block;
+  min-height: 13px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  color: #2be080;
+  margin: 0;
+  margin-top: -13px;
+  padding: 0;
+}
+
 .profile__save {
   display: none;
   width: 410px;
@@ -252,6 +266,11 @@
 
   .profile__text-error {
     margin-top: 356px;
+  }
+
+  .profile__text-sucess_opened {
+    top: 360px;
+    margin-top: -13px;
   }
 
   .profile__edit {

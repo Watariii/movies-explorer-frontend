@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 
-function MoviesCard({ movie, type, handleSaveMovie, checkSavingMovie }) {
+function MoviesCard({ movie, type, handleSaveMovie, checkSavingMovie, handleMovieClick, urlTrailer }) {
 const [isSaved, setIsSaved] = useState(false); 
   
   useEffect(() => {
@@ -36,6 +36,7 @@ const [isSaved, setIsSaved] = useState(false);
           className="movies-card__image"
           src={movie.image}
           alt="картинка к фильму"
+          onClick={() => {handleMovieClick(urlTrailer)}}
         ></img>
       </article>
     </li>

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 import Layout from "../Layout/Layout";
 import Main from "../Main/Main";
@@ -12,6 +12,21 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import {
+  MAX_DURATION_SHORT_FILM,
+  SHOW_MOVIES_PC,
+  SHOW_MOVIES_TABLET,
+  SHOW_MOVIES_MOBILE,
+  ADD_SHOW_MOVIES_TABLET,
+  ADD_SHOW_MOVIES_MOBILE,
+  ADD_SHOW_MOVIES_PC,
+  SCREENWIDTH_FROM_830,
+  SCREENWIDTH_FROM_530,
+  SEARCH_MESSAGE_NOT_FOUND,
+  SEARCH_MESSAGE_EMPTY_INPUT,
+  SEARCH_MESSAGE_ERROR_REQUEST,
+  POPUP_MESSAGE_ERROR,
+} from "../../utils/constants";
 
 import { getMovies, url } from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
@@ -23,6 +38,7 @@ function App() {
   const [isNavBarOpen, setIsNavBarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const location = useLocation();
   // для сообщения открытие/закрытие
   const [isOpenSearchResultMessage, setIsOpenSearchResultMessage] =
     useState(false);
@@ -36,22 +52,30 @@ function App() {
   //---------------------------------------------------------------------------------------
   //______________________________________
   const [amountMovies, setAmountMovies] = useState(
-    window.innerWidth >= 830 ? 12 : window.innerWidth >= 530 ? 8 : 5
+    window.innerWidth >= SCREENWIDTH_FROM_830
+      ? SHOW_MOVIES_PC
+      : window.innerWidth >= SCREENWIDTH_FROM_530
+      ? SHOW_MOVIES_TABLET
+      : SHOW_MOVIES_MOBILE
   );
   const [amountMoreMovies, setAmountMoreMovies] = useState(
-    window.innerWidth >= 830 ? 3 : window.innerWidth >= 530 ? 2 : 2
+    window.innerWidth >= SCREENWIDTH_FROM_830
+      ? ADD_SHOW_MOVIES_PC
+      : window.innerWidth >= SCREENWIDTH_FROM_530
+      ? ADD_SHOW_MOVIES_TABLET
+      : ADD_SHOW_MOVIES_MOBILE
   );
 
   function handleResize(e) {
-    if (e.target.innerWidth >= 830) {
-      setAmountMovies(12);
-      setAmountMoreMovies(3);
-    } else if (e.target.innerWidth >= 530) {
-      setAmountMovies(8);
-      setAmountMoreMovies(2);
+    if (e.target.innerWidth >= SCREENWIDTH_FROM_830) {
+      setAmountMovies(SHOW_MOVIES_PC);
+      setAmountMoreMovies(ADD_SHOW_MOVIES_PC);
+    } else if (e.target.innerWidth >= SCREENWIDTH_FROM_530) {
+      setAmountMovies(SHOW_MOVIES_TABLET);
+      setAmountMoreMovies(ADD_SHOW_MOVIES_TABLET);
     } else {
-      setAmountMovies(5);
-      setAmountMoreMovies(2);
+      setAmountMovies(SHOW_MOVIES_MOBILE);
+      setAmountMoreMovies(ADD_SHOW_MOVIES_MOBILE);
     }
   }
 
@@ -64,6 +88,9 @@ function App() {
   }, [window.innerWidth]);
 
   //_________________________________________________________________________________
+  const [allMoviesFormatted, setAllMoviesFormatted] = useState(
+    JSON.parse(localStorage.getItem("allMoviesFormatted")) || []
+  );
 
   const [movies, setMovies] = useState(
     JSON.parse(localStorage.getItem("movies")) || []
@@ -127,85 +154,129 @@ function App() {
     if (inputTextMovie !== "") {
       setIsOpenSearchResultMessage(false);
       setIsLoading(true);
-      getMovies()
-        .then((allMoviesArray) => {
-          let allMoviesArrayFormatted = []; // все отформатированные фильмы
-          let textFilteredMoviesArray = []; // все отформатированные фильмы отфильтрованные по названию
-          let shortFilteredMoviesArray = []; // все отформатированные фильмы с фильтрацией по тексту отфильтрованные по короткометражкам
-          allMoviesArray.map((movie) =>
-            allMoviesArrayFormatted.push({
-              country: movie.country,
-              director: movie.director,
-              duration: movie.duration,
-              year: movie.year,
-              description: movie.description,
-              image: url + movie.image.url,
-              trailerLink: movie.trailerLink,
-              thumbnail: url + movie.image.formats.thumbnail.url,
-              movieId: movie.id,
-              nameRU: movie.nameRU,
-              nameEN: movie.nameEN,
-            })
-          );
-          if (!isActiveCheckboxMovie) {
-            allMoviesArrayFormatted.map((movie) => {
-              if (
-                movie.nameRU
-                  .toLowerCase()
-                  .includes(inputTextMovie.toLowerCase()) ||
-                movie.nameEN
-                  .toLowerCase()
-                  .includes(inputTextMovie.toLowerCase())
-              )
-                return textFilteredMoviesArray.push(movie);
-            });
-            if (textFilteredMoviesArray.length !== 0)
-              return (
-                setFilteredMoviesByText(textFilteredMoviesArray),
-                setMovies(textFilteredMoviesArray.slice(0, amountMovies))
-              );
-
-            getSearchResultMessage("Ничего не найдено.");
-          } else {
-            allMoviesArrayFormatted.map((movie) => {
-              if (
-                movie.nameRU
-                  .toLowerCase()
-                  .includes(inputTextMovie.toLowerCase()) ||
-                movie.nameEN
-                  .toLowerCase()
-                  .includes(inputTextMovie.toLowerCase())
-              )
-                return textFilteredMoviesArray.push(movie);
-            });
-            setFilteredMoviesByText(textFilteredMoviesArray);
-            textFilteredMoviesArray.map((movie) => {
-              if (movie.duration <= 40)
-                return shortFilteredMoviesArray.push(movie);
-            });
-            if (shortFilteredMoviesArray.length !== 0)
-              return (
-                setFilteredMoviesByCheckbox(shortFilteredMoviesArray),
-                setMovies(shortFilteredMoviesArray.slice(0, amountMovies))
-              );
-
-            getSearchResultMessage("Ничего не найдено."); // вынести в переменные
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          getSearchResultMessage(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен."
-          );
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      JSON.parse(localStorage.getItem("allMoviesFormatted")).length !== 0
+        ? setTimeout(() => {
+            LocalFoundMovies();
+          }, 1000)
+        : RequestFoundMovies();
     } else {
-      getSearchResultMessage(
-        "Поисковой запрос пустой. Введите название фильма на русском или английском."
-      );
-      console.log("Инпут пустой");
+      getSearchResultMessage(SEARCH_MESSAGE_EMPTY_INPUT);
+    }
+  }
+
+  function RequestFoundMovies() {
+    getMovies()
+      .then((allMoviesArray) => {
+        let allMoviesArrayFormatted = []; // все отформатированные фильмы
+        let textFilteredMoviesArray = []; // все отформатированные фильмы отфильтрованные по названию
+        let shortFilteredMoviesArray = []; // все отформатированные фильмы с фильтрацией по тексту отфильтрованные по короткометражкам
+        allMoviesArray.map((movie) =>
+          allMoviesArrayFormatted.push({
+            country: movie.country,
+            director: movie.director,
+            duration: movie.duration,
+            year: movie.year,
+            description: movie.description,
+            image: url + movie.image.url,
+            trailerLink: movie.trailerLink,
+            thumbnail: url + movie.image.formats.thumbnail.url,
+            movieId: movie.id,
+            nameRU: movie.nameRU,
+            nameEN: movie.nameEN,
+          })
+        );
+        setAllMoviesFormatted(allMoviesArrayFormatted);
+        if (!isActiveCheckboxMovie) {
+          allMoviesArrayFormatted.map((movie) => {
+            if (
+              movie.nameRU
+                .toLowerCase()
+                .includes(inputTextMovie.toLowerCase()) ||
+              movie.nameEN.toLowerCase().includes(inputTextMovie.toLowerCase())
+            )
+              return textFilteredMoviesArray.push(movie);
+          });
+          if (textFilteredMoviesArray.length !== 0)
+            return (
+              setFilteredMoviesByText(textFilteredMoviesArray),
+              setMovies(textFilteredMoviesArray.slice(0, amountMovies))
+            );
+
+          getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
+        } else {
+          allMoviesArrayFormatted.map((movie) => {
+            if (
+              movie.nameRU
+                .toLowerCase()
+                .includes(inputTextMovie.toLowerCase()) ||
+              movie.nameEN.toLowerCase().includes(inputTextMovie.toLowerCase())
+            )
+              return textFilteredMoviesArray.push(movie);
+          });
+          setFilteredMoviesByText(textFilteredMoviesArray);
+          textFilteredMoviesArray.map((movie) => {
+            if (movie.duration <= MAX_DURATION_SHORT_FILM)
+              return shortFilteredMoviesArray.push(movie);
+          });
+          if (shortFilteredMoviesArray.length !== 0)
+            return (
+              setFilteredMoviesByCheckbox(shortFilteredMoviesArray),
+              setMovies(shortFilteredMoviesArray.slice(0, amountMovies))
+            );
+
+          getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        getSearchResultMessage(SEARCH_MESSAGE_ERROR_REQUEST);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function LocalFoundMovies() {
+    setIsLoading(false);
+    let allMoviesArrayFormatted = allMoviesFormatted;
+    let textFilteredMoviesArray = [];
+    let shortFilteredMoviesArray = [];
+
+    if (!isActiveCheckboxMovie) {
+      allMoviesArrayFormatted.map((movie) => {
+        if (
+          movie.nameRU.toLowerCase().includes(inputTextMovie.toLowerCase()) ||
+          movie.nameEN.toLowerCase().includes(inputTextMovie.toLowerCase())
+        )
+          return textFilteredMoviesArray.push(movie);
+      });
+      if (textFilteredMoviesArray.length !== 0)
+        return (
+          setFilteredMoviesByText(textFilteredMoviesArray),
+          setMovies(textFilteredMoviesArray.slice(0, amountMovies))
+        );
+
+      getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
+    } else {
+      allMoviesArrayFormatted.map((movie) => {
+        if (
+          movie.nameRU.toLowerCase().includes(inputTextMovie.toLowerCase()) ||
+          movie.nameEN.toLowerCase().includes(inputTextMovie.toLowerCase())
+        )
+          return textFilteredMoviesArray.push(movie);
+      });
+      setFilteredMoviesByText(textFilteredMoviesArray);
+      textFilteredMoviesArray.map((movie) => {
+        if (movie.duration <= MAX_DURATION_SHORT_FILM)
+          return shortFilteredMoviesArray.push(movie);
+      });
+      if (shortFilteredMoviesArray.length !== 0)
+        return (
+          setFilteredMoviesByCheckbox(shortFilteredMoviesArray),
+          setMovies(shortFilteredMoviesArray.slice(0, amountMovies))
+        );
+
+      getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
     }
   }
 
@@ -216,22 +287,21 @@ function App() {
     if (inputTextMovie !== "") {
       if (isActiveCheckboxMovie) {
         filteredMoviesbyText.map((movie) => {
-          if (movie.duration <= 40) return moviesArray.push(movie); //else ничего не найдено
+          if (movie.duration <= MAX_DURATION_SHORT_FILM)
+            return moviesArray.push(movie);
         });
         setFilteredMoviesByCheckbox(moviesArray);
         setMovies(moviesArray.slice(0, amountMovies));
         if (moviesArray.length === 0)
-          return getSearchResultMessage("Ничего не найдено.");
+          return getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
       } else {
         setFilteredMoviesByText(filteredMoviesbyText);
         setMovies(filteredMoviesbyText.slice(0, amountMovies));
         if (filteredMoviesArray.length === 0)
-          return getSearchResultMessage("Ничего не найдено.");
+          return getSearchResultMessage(SEARCH_MESSAGE_NOT_FOUND);
       }
     } else {
-      getSearchResultMessage(
-        "Поисковой запрос пустой. Введите название фильма на русском или английском."
-      );
+      getSearchResultMessage(SEARCH_MESSAGE_EMPTY_INPUT);
     }
   }, [isActiveCheckboxMovie]);
 
@@ -256,6 +326,10 @@ function App() {
   // Для localstorage
   useEffect(() => {
     if (loggedIn) {
+      localStorage.setItem(
+        "allMoviesFormatted",
+        JSON.stringify(allMoviesFormatted)
+      );
       localStorage.setItem("movies", JSON.stringify(movies));
       localStorage.setItem(
         "filteredMoviesbyText",
@@ -272,6 +346,7 @@ function App() {
       );
     }
   }, [
+    allMoviesFormatted,
     movies,
     filteredMoviesbyText,
     filteredMoviesbyCheckbox,
@@ -303,7 +378,7 @@ function App() {
       .catch((err) => {
         if (err) {
           setPopUpInfoMessage({
-            message: "Произошла ошибка",
+            message: POPUP_MESSAGE_ERROR,
             statusOk: false,
           });
           setIsPopUpInfoOpen(true);
@@ -324,7 +399,7 @@ function App() {
       .catch((err) => {
         if (err) {
           setPopUpInfoMessage({
-            message: "Произошла ошибка",
+            message: POPUP_MESSAGE_ERROR,
             statusOk: false,
           });
           setIsPopUpInfoOpen(true);
@@ -335,6 +410,7 @@ function App() {
 
   //выйти из аккаунта
   function handleLogout() {
+    setAllMoviesFormatted([]);
     setMovies([]);
     setFilteredMoviesByText([]);
     setFilteredMoviesByCheckbox([]);
@@ -347,8 +423,8 @@ function App() {
     setOnSearchResultMessage("");
     setIsOpenSearchResultMessage(false);
     setFilteredSavedMoviesbyText([]);
-    setFilteredSavedMoviesbyCheckbox([])
-    setPopUpInfoMessage('');
+    setFilteredSavedMoviesbyCheckbox([]);
+    setPopUpInfoMessage("");
     setLoggedIn(false);
     navigate("/", { replace: true });
     mainApi
@@ -365,14 +441,19 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   function checkToken() {
+    const path = location.pathname;
     const token = localStorage.getItem("token");
     if (token) {
       mainApi
         .getUserInfo()
         .then((userData) => {
           setLoggedIn(true);
-          navigate("/movies");
           setCurrentUser(userData);
+          if (path === "/sign-in" || path === "/sign-up") {
+            navigate("/movies", { replace: true });
+          } else {
+            navigate(path, { replace: true });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -396,6 +477,7 @@ function App() {
         .then((movies) => {
           setRenderSavedMovies(movies.reverse());
           setFilteredSavedMoviesbyText(movies);
+          setSavedMovies(movies);
         })
         .catch((err) => {
           console.log(err);
@@ -408,6 +490,7 @@ function App() {
     mainApi
       .saveMovie(movie)
       .then((savedMovie) => {
+        setSavedMovies([savedMovie, ...savedMovies]);
         setRenderSavedMovies([savedMovie, ...renderSavedMovies]);
         setFilteredSavedMoviesbyText([
           savedMovie,
@@ -423,6 +506,9 @@ function App() {
     mainApi
       .deleteSaveMovie(idMovie)
       .then((deletedMovie) => {
+        setSavedMovies(
+          savedMovies.filter((item) => item._id !== deletedMovie._id)
+        );
         setRenderSavedMovies(
           renderSavedMovies.filter((item) => item._id !== deletedMovie._id)
         );
@@ -439,7 +525,7 @@ function App() {
   //проверка добавлен ли фильм в сохраненные
 
   function checkSavingMovie(movie) {
-    return renderSavedMovies.some((item) => {
+    return savedMovies.some((item) => {
       return item.movieId === movie.movieId;
     });
   }
@@ -508,7 +594,7 @@ function App() {
         });
         setFilteredSavedMoviesbyText(textFilteredSavedMoviesArray);
         textFilteredSavedMoviesArray.map((movie) => {
-          if (movie.duration <= 40)
+          if (movie.duration <= MAX_DURATION_SHORT_FILM)
             return shortFilteredSavedMoviesArray.push(movie);
         });
         setFilteredSavedMoviesbyCheckbox(shortFilteredSavedMoviesArray);
@@ -526,7 +612,7 @@ function App() {
     let shortFilteredSavedMoviesArray = [];
     if (isActiveCheckboxSavedMovie) {
       filteredSavedMoviesbyText.map((movie) => {
-        if (movie.duration <= 40)
+        if (movie.duration <= MAX_DURATION_SHORT_FILM)
           return shortFilteredSavedMoviesArray.push(movie); //else ничего не найдено
       });
       setFilteredSavedMoviesbyCheckbox(shortFilteredSavedMoviesArray);
@@ -557,7 +643,6 @@ function App() {
     <CurrentUserContext.Provider value={[currentUser, setCurrentUser]}>
       <Layout>
         <Routes>
-          <Route path="*" element={<NotFound />} />
           <Route
             path="/"
             element={
@@ -568,6 +653,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<NotFound />} />
           <Route
             path="/movies"
             element={
@@ -602,7 +688,9 @@ function App() {
                 loggedIn={loggedIn}
                 isNavBarOpen={isNavBarOpen}
                 handleOpenNavBar={handleOpenNavBar}
+                savedMovies={savedMovies}
                 renderSavedMovies={renderSavedMovies}
+                setRenderSavedMovies={setRenderSavedMovies}
                 handleSaveMovie={handleSaveMovie}
                 inputTextSavedMovie={inputTextSavedMovie}
                 handleChangeInputTextSavedMovie={
@@ -611,6 +699,8 @@ function App() {
                 handleSubmitFoundSavedMovies={handleSubmitFoundSavedMovies}
                 isActiveCheckboxSavedMovie={isActiveCheckboxSavedMovie}
                 handleActiveCheckboxSavedMovie={handleActiveCheckboxSavedMovie}
+                setInputTextSavedMovie={setInputTextSavedMovie}
+                setIsActiveCheckboxSavedMovie={setIsActiveCheckboxSavedMovie}
               />
             }
           />

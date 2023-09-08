@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
-function Sign({ children, title, buttonText, text, textLink, link, type, isValidForm}) {
+function Sign({ children, title, buttonText, text, textLink, link, type, isValidForm, isDisable }) {
   
   return (
     <section className="sign">
@@ -10,7 +10,7 @@ function Sign({ children, title, buttonText, text, textLink, link, type, isValid
       </div>
       {children}
       <div className={`sign__bottom sign__bottom_type_${type}`}>
-        <button className="sign__button" form="sign-form" type="submit" disabled={!isValidForm}>{buttonText}</button>
+        <button className="sign__button" form="sign-form" type="submit" disabled={!isValidForm || isDisable}>{buttonText}</button>
         <h2 className="sign__text">
         {text}
           <Link to={link} className="sign__link">

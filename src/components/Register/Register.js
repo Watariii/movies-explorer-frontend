@@ -4,6 +4,8 @@ import SignInput from "../SignInput/SignInput";
 function Register({ handleRegister, handleFormValueSign, formValue }) {
   const [isValidForm, setIsValidForm] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState({});
+  const [isDisable, setIsDisable] = useState(false);
+
   function handleChangeForm(evt) {
     if (evt.target.closest("form").checkValidity()) {
       setIsValidForm(true);
@@ -19,6 +21,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
   }
 
   function handleSubmit(evt) {
+    setIsDisable(true)
     evt.preventDefault();
     handleRegister(formValue);
   }
@@ -34,6 +37,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
           textLink="Войти"
           link="/sign-in"
           type="register"
+          isDisable={isDisable}
         >
           <form
             onSubmit={handleSubmit}
@@ -49,6 +53,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               name="name"
               min={2}
               max={30}
+              isDisable={isDisable}
             />
             <SignInput
               handleChangeForm={handleChangeForm}
@@ -57,6 +62,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               label="E-mail"
               type="text"
               name="email"
+              isDisable={isDisable}
             />
             <SignInput
               handleChangeForm={handleChangeForm}
@@ -66,6 +72,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               type="password"
               name="password"
               min={8}
+              isDisable={isDisable}
             />
           </form>
         </Sign>

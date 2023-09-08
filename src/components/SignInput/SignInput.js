@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { useRef } from "react";
+import { REGEX_EMAIL_PATTERN } from "../../utils/constants";
 
 function SignInput({
   label,
@@ -9,14 +10,15 @@ function SignInput({
   handleChangeForm,
   errorsMessage,
   min,
-  max
+  max,
+  isDisable
 }) {
  
   const emailValidationReg = useRef();
 
   function useEmailValidationReg() {
     if (name === "email")
-    emailValidationReg.current.pattern = "[\\dA-Za-z_.\\-]{3,}@[a-z]+[.]{1}[a-z]{2,4}"
+    emailValidationReg.current.pattern = REGEX_EMAIL_PATTERN
   }
   return (
     <div className="sign-input">
@@ -36,6 +38,7 @@ function SignInput({
         ref={emailValidationReg}
         onClick={useEmailValidationReg}
         required
+        disabled={isDisable}
       />
       <span className="sign-input__error">
         {errorsMessage}
