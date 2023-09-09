@@ -3,13 +3,28 @@ import Search from "../Search/Search";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Devider from "../Devider/Devider";
 import Footer from "../Footer/Footer";
+import Preloader from "../Preloader/Preloader";
+import SearchResultMessage from "../SearchResultMessage/SearchResultMessage";
 
 function Movies({
   loggedIn,
   isNavBarOpen,
   handleOpenNavBar,
-  isActiveMoviesCard,
-  handleActiveMoviesCard,
+  inputTextMovie,
+  handleChangeInputTextMovie,
+  handleSubmitFoundMovies,
+  moreMovies,
+  movies,
+  isLoading,
+  isHideMoreButton,
+  isActiveCheckboxMovie,
+  handleActiveCheckboxMovie,
+  onMessageResult,
+  isMessageResultOpen,
+  handleSaveMovie,
+  checkSavingMovie,
+  onSearchResultMessage,
+  isOpenSearchResultMessage,
 }) {
   return (
     <>
@@ -19,14 +34,37 @@ function Movies({
         handleOpenNavBar={handleOpenNavBar}
       />
       <main className={`movies ${isNavBarOpen ? "movies_opened" : ""}`}>
-        <Search />
+        <Search
+          inputText={inputTextMovie}
+          handleChangeInputText={handleChangeInputTextMovie}
+          handleSubmitFound={handleSubmitFoundMovies}
+          isActiveCheckbox={isActiveCheckboxMovie}
+          handleActiveCheckbox={handleActiveCheckboxMovie}
+        />
         <MoviesCardList
           type="movies"
-          isActiveMoviesCard={isActiveMoviesCard}
-          handleActiveMoviesCard={handleActiveMoviesCard}
+          movies={movies}
+          handleSaveMovie={handleSaveMovie}
+          checkSavingMovie={checkSavingMovie}
+        />
+        <SearchResultMessage
+          onSearchResultMessage={onSearchResultMessage}
+          isOpenSearchResultMessage={isOpenSearchResultMessage}
+        />
+        <Preloader
+          isLoading={isLoading}
+          onMessageResult={onMessageResult}
+          isMessageResultOpen={isMessageResultOpen}
         />
         <Devider type="movies">
-          <button type="button" className="devider__button" aria-label="ещё">
+          <button
+            onClick={moreMovies}
+            type="button"
+            className={`devider__button ${
+              isHideMoreButton ? "devider__button_hide" : ""
+            }`}
+            aria-label="ещё"
+          >
             Ещё
           </button>
         </Devider>

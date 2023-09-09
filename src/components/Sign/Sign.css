@@ -57,6 +57,15 @@
   cursor: pointer;
 }
 
+.sign__button:disabled {
+  background-color:#F8F8F8;
+  color:#C2C2C2;
+  cursor:default ;
+}
+.sign__button:disabled:hover {
+  opacity: 1;
+}
+
 .sign__button:hover {
   opacity: 0.8;
 }

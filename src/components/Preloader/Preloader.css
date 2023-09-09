@@ -40,13 +40,18 @@
 }
 
 .preloader {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
     z-index: 10;
     padding: 20px;
+    box-sizing: border-box;
+}
+
+.preloader_active {
+    display: flex;
 }
 
 .preloader__container {
@@ -56,6 +61,7 @@
 }
 
 .preloader__round {
+    display: none;
     width: 100px;
     height: 100px;
     position: absolute;
@@ -63,6 +69,10 @@
     left: 0;
     background: #2BE080;
     border-radius: 50px;
+}
+
+.preloader__round_active {
+    display: block;
 }
 
 .preloader__round::after,

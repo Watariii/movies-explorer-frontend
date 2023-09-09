@@ -1,22 +1,79 @@
+import { useState } from "react";
 import Sign from "../Sign/Sign";
 import SignInput from "../SignInput/SignInput";
-function Register({ handleLogin }) {
+function Register({ handleRegister, handleFormValueSign, formValue }) {
+  const [isValidForm, setIsValidForm] = useState(false);
+  const [errorsMessage, setErrorsMessage] = useState({});
+  const [isDisable, setIsDisable] = useState(false);
+
+  function handleChangeForm(evt) {
+    if (evt.target.closest("form").checkValidity()) {
+      setIsValidForm(true);
+    } else {
+      setIsValidForm(false);
+    }
+    const { name, value } = evt.target;
+    setErrorsMessage({
+      ...errorsMessage,
+      [name]: evt.target.validationMessage,
+    });
+    handleFormValueSign({ ...formValue, [name]: value });
+  }
+
+  function handleSubmit(evt) {
+    setIsDisable(true)
+    evt.preventDefault();
+    handleRegister(formValue);
+  }
+
   return (
     <main className="content">
       <section className="register">
         <Sign
+          isValidForm={isValidForm}
           title="Добро пожаловать!"
           buttonText="Зарегистрироваться"
           text="Уже зарегистрированы?"
           textLink="Войти"
           link="/sign-in"
           type="register"
-          handlelogin={handleLogin}
+          isDisable={isDisable}
         >
-          <form className="register__form" id="sign-form">
-            <SignInput label="Имя" type="text" />
-            <SignInput label="E-mail" type="email" />
-            <SignInput label="Пароль" type="password" />
+          <form
+            onSubmit={handleSubmit}
+            className="register__form"
+            id="sign-form"
+          >
+            <SignInput
+              handleChangeForm={handleChangeForm}
+              formValue={formValue.name}
+              errorsMessage={errorsMessage.name}
+              label="Имя"
+              type="text"
+              name="name"
+              min={2}
+              max={30}
+              isDisable={isDisable}
+            />
+            <SignInput
+              handleChangeForm={handleChangeForm}
+              formValue={formValue.email}
+              errorsMessage={errorsMessage.email}
+              label="E-mail"
+              type="text"
+              name="email"
+              isDisable={isDisable}
+            />
+            <SignInput
+              handleChangeForm={handleChangeForm}
+              formValue={formValue.password}
+              errorsMessage={errorsMessage.password}
+              label="Пароль"
+              type="password"
+              name="password"
+              min={8}
+              isDisable={isDisable}
+            />
           </form>
         </Sign>
       </section>

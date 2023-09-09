@@ -28,6 +28,10 @@
   cursor: pointer;
 }
 
+.devider__button_hide {
+  visibility: hidden;
+}
+
 .devider__button:hover {
     opacity: 0.8;
 }

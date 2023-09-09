@@ -1,5 +1,5 @@
 import { NavLink, Link } from "react-router-dom";
-function Navigation({ loggedIn, isNavBarOpen, handleOpenNavBar }) {
+function Navigation({ loggedIn, isNavBarOpen }) {
   return (
     <>
       <nav

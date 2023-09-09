@@ -1,4 +1,9 @@
 # Проект: Movie explorer
+[Ссылка проекта на pull request] (https://github.com/Watariii/movies-explorer-frontend/pull/2);
+
+[Ссылка на задеплоенный на сервере проект] (https://watari.nomoredomains.xyz)
+
+
 
 ### Обзор
 * Интро

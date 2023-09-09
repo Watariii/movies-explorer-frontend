@@ -1,24 +1,42 @@
-import moviesСardImage from "../../images/moviesСardImage.jpg";
+import { useEffect,useState } from "react";
 
-function MoviesCard({ type, isActiveMoviesCard, handleActiveMoviesCard }) {
+function MoviesCard({ movie, type, handleSaveMovie, checkSavingMovie, handleMovieClick, urlTrailer }) {
+const [isSaved, setIsSaved] = useState(false); 
+  
+  useEffect(() => {
+    if (type === "movies") 
+    setIsSaved(checkSavingMovie(movie));
+  }, [movie, checkSavingMovie, type])  
+  
+
+  const moviesCardButtonClassName = (`movies-card__button ${
+    isSaved
+      ? "movies-card__button_active"
+      : ""
+  } movies-card__button_type_${type}`)
   return (
-    <li>
+    <li key={movie.movieId}>
       <article className="movies-card">
         <div className="movies-card__info">
-          <h2 className="movies-card__title">33 слова о дизайне</h2>
-          <p className="movies-card__duration">1ч 47м</p>
+          <h2 className="movies-card__title">{movie.nameRU}</h2>
+          <p className="movies-card__duration">{`${Math.floor(
+            movie.duration / 60
+          )}ч ${
+            movie.duration > 40
+              ? Math.ceil((movie.duration / 60 - 1) * 60)
+              : movie.duration
+          }м`}</p>
           <button
-            className={`movies-card__button ${
-              isActiveMoviesCard ? "movies-card__button movies-card__button_active" : ""
-            } movies-card__button_type_${type}`}
-            onClick={handleActiveMoviesCard}
-            aria-label="добавить в сохраненные"
+            className={moviesCardButtonClassName}
+            onClick={() => handleSaveMovie(movie)}
+            aria-label={`${type === "movies"? "добавить в сохраненные": "удалить из сохраненных"}`}
           ></button>
         </div>
         <img
           className="movies-card__image"
-          src={moviesСardImage}
+          src={movie.image}
           alt="картинка к фильму"
+          onClick={() => {handleMovieClick(urlTrailer)}}
         ></img>
       </article>
     </li>

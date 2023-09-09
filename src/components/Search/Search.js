@@ -1,10 +1,23 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import SearchFrom from "../SearchForm/SearchForm";
-function Search() {
+function Search({
+  inputText,
+  handleChangeInputText,
+  handleSubmitFound,
+  isActiveCheckbox,
+  handleActiveCheckbox,
+}) {
   return (
     <section className="search">
-      <SearchFrom />
-      <FilterCheckbox />
+      <SearchFrom
+        inputText={inputText}
+        handleChangeInputText={handleChangeInputText}
+        handleSubmitFound={handleSubmitFound}
+      />
+      <FilterCheckbox
+        isActiveCheckbox={isActiveCheckbox}
+        handleActiveCheckbox={handleActiveCheckbox}
+      />
     </section>
   );
 }
