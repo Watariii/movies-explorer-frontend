@@ -1,5 +1,5 @@
 import { NavLink, Link } from "react-router-dom";
-function Navigation({ loggedIn, isNavBarOpen }) {
+function Navigation({ loggedIn, isNavBarOpen, handleOpenNavBar }) {
   return (
     <>
       <nav
@@ -8,6 +8,7 @@ function Navigation({ loggedIn, isNavBarOpen }) {
         }`}
       >
         <NavLink
+          onClick={() => {setTimeout(() => {handleOpenNavBar(false)}, 100)}}
           to="/"
           className={({ isActive }) =>
             `navigation__main ${isActive ? "active" : ""} ${
@@ -18,6 +19,7 @@ function Navigation({ loggedIn, isNavBarOpen }) {
           Главная
         </NavLink>
         <NavLink
+          onClick={() => {setTimeout(() => {handleOpenNavBar((false))}, 100)}}
           to="/movies"
           className={({ isActive }) =>
             `navigation__films ${isActive ? "active" : ""} ${
@@ -28,6 +30,7 @@ function Navigation({ loggedIn, isNavBarOpen }) {
           Фильмы
         </NavLink>
         <NavLink
+          onClick={() => {setTimeout(() => {handleOpenNavBar((false))}, 100)}}
           to="/saved-movies"
           className={({ isActive }) =>
             `navigation__saved ${isActive ? "active" : ""} ${
@@ -38,6 +41,7 @@ function Navigation({ loggedIn, isNavBarOpen }) {
           Сохраненные фильмы
         </NavLink>
         <NavLink
+          onClick={() => {setTimeout(() => {handleOpenNavBar((false))}, 100)}}
           to="/profile"
           className={({ isActive }) =>
             `navigation__account ${isActive ? "active" : ""} ${

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Sign from "../Sign/Sign";
 import SignInput from "../SignInput/SignInput";
-function Register({ handleRegister, handleFormValueSign, formValue }) {
+function Register({ handleRegister, handleFormValueSign, formValue, isDisableForm }) {
   const [isValidForm, setIsValidForm] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState({});
-  const [isDisable, setIsDisable] = useState(false);
 
   function handleChangeForm(evt) {
     if (evt.target.closest("form").checkValidity()) {
@@ -21,7 +20,6 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
   }
 
   function handleSubmit(evt) {
-    setIsDisable(true)
     evt.preventDefault();
     handleRegister(formValue);
   }
@@ -37,7 +35,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
           textLink="Войти"
           link="/sign-in"
           type="register"
-          isDisable={isDisable}
+          isDisable={isDisableForm}
         >
           <form
             onSubmit={handleSubmit}
@@ -53,7 +51,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               name="name"
               min={2}
               max={30}
-              isDisable={isDisable}
+              isDisable={isDisableForm}
             />
             <SignInput
               handleChangeForm={handleChangeForm}
@@ -62,7 +60,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               label="E-mail"
               type="text"
               name="email"
-              isDisable={isDisable}
+              isDisable={isDisableForm}
             />
             <SignInput
               handleChangeForm={handleChangeForm}
@@ -72,7 +70,7 @@ function Register({ handleRegister, handleFormValueSign, formValue }) {
               type="password"
               name="password"
               min={8}
-              isDisable={isDisable}
+              isDisable={isDisableForm}
             />
           </form>
         </Sign>

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import Sign from "../Sign/Sign";
 import SignInput from "../SignInput/SignInput";
-function Login({ handleLogin, handleFormValueSign, formValue }) {
+function Login({ handleLogin, handleFormValueSign, formValue, isDisableForm }) {
 
   const [isValidForm, setIsValidForm] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState({});
-  const [isDisable, setIsDisable] = useState(false);
 
   function handleChangeForm(evt) {
     if (evt.target.closest("form").checkValidity()) {
@@ -22,7 +21,6 @@ function Login({ handleLogin, handleFormValueSign, formValue }) {
   }
 
   function handleSubmit(evt) {
-    setIsDisable(true)
     evt.preventDefault();
     handleLogin(formValue);
   }
@@ -38,7 +36,7 @@ function Login({ handleLogin, handleFormValueSign, formValue }) {
           textLink="Регистрация"
           link="/sign-up"
           type="login"
-          isDisable={isDisable}
+          isDisable={isDisableForm}
         >
           <form onSubmit={handleSubmit} className="login__form" id="sign-form">
             <SignInput
@@ -48,7 +46,7 @@ function Login({ handleLogin, handleFormValueSign, formValue }) {
               label="E-mail"
               type="text"
               name="email"
-              isDisable={isDisable}
+              isDisable={isDisableForm}
             />
             <SignInput
               handleChangeForm={handleChangeForm}
@@ -58,7 +56,7 @@ function Login({ handleLogin, handleFormValueSign, formValue }) {
               type="password"
               name="password"
               min={8}
-              isDisable={isDisable}
+              isDisable={isDisableForm}
             />
           </form>
         </Sign>

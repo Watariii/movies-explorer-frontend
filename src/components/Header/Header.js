@@ -14,13 +14,14 @@ function Header({
       <Navigation
         loggedIn={loggedIn}
         isNavBarOpen={isNavBarOpen}
+        handleOpenNavBar={handleOpenNavBar}
       />
       <button
         type="button"
         className={`header__button-navigation ${
           loggedIn ? "header__button-navigation_logged-in" : ""
         } ${isNavBarOpen ? "header__button-navigation_opened" : ""}`}
-        onClick={handleOpenNavBar}
+        onClick={() => handleOpenNavBar()}
         aria-label="навигация"
       ></button>
     </header>

@@ -45,8 +45,8 @@ function App() {
   //___________________________________________________________________________
   const navigate = useNavigate();
 
-  function handleOpenNavBar() {
-    setIsNavBarOpen(!isNavBarOpen);
+  function handleOpenNavBar(boolean) {
+    setIsNavBarOpen(boolean===undefined? !isNavBarOpen: boolean);
   }
   //movies
   //---------------------------------------------------------------------------------------
@@ -357,6 +357,8 @@ function App() {
   //___________________________________________________________________________________
   //форма регистрации и авторизации
   //---------------------------------------------------------------------------------------
+  // деактивация формы регистрации и авторизации при отправке запроса на сервер
+  const [isDisableForm, setIsDisableForm] = useState(false);
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -369,6 +371,7 @@ function App() {
   //_______________________________________________________________________________
   //регистрация
   function handleRegister({ email, password, name }) {
+    setIsDisableForm(true);
     mainApi
       .register({ email, password, name })
       .then(() => {
@@ -384,11 +387,15 @@ function App() {
           setIsPopUpInfoOpen(true);
           console.log(err);
         }
+      })
+      .finally(() => {
+        setIsDisableForm(false);
       });
   }
 
   //авторизация
   function handleLogin({ email, password }) {
+    setIsDisableForm(true);
     mainApi
       .authorize({ email, password })
       .then(() => {
@@ -405,6 +412,9 @@ function App() {
           setIsPopUpInfoOpen(true);
           console.log(err);
         }
+      })
+      .finally(() => {
+        setIsDisableForm(false);
       });
   }
 
@@ -723,6 +733,7 @@ function App() {
                 handleLogin={handleLogin}
                 handleFormValueSign={handleFormValueSign}
                 formValue={formValue}
+                isDisableForm={isDisableForm}
               />
             }
           />
@@ -733,6 +744,7 @@ function App() {
                 handleRegister={handleRegister}
                 handleFormValueSign={handleFormValueSign}
                 formValue={formValue}
+                isDisableForm={isDisableForm}
               />
             }
           />

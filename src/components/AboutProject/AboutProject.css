@@ -162,13 +162,11 @@
   }
 
   .about-project__backend-week {
-    max-width: 100px;
-    width: 32vw;
+    width: 31.25vw;
     font-size: 11px;
   }
 
   .about-project__frontend-week {
-    max-width: 184px;
     width: 57.5vw;
     font-size: 11px;
   }
