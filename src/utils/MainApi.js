@@ -1,5 +1,5 @@
 const apiConfig = {
-  url: "https://api.watari.nomoredomains.xyz",
+  url: "http://api.movies-explorer.sukhov-nikita.ru",
   headers: {
     "content-type": "application/json",
   },
