@@ -1,5 +1,5 @@
 const apiConfig = {
-  url: "http://api.movies-explorer.sukhov-nikita.ru",
+  url: "https://api.movies-explorer.sukhov-nikita.ru",
   headers: {
     "content-type": "application/json",
   },
