@@ -37,5 +37,6 @@ Frontend: HTML, CSS, Javascript,  React, npm, git.
 * [Backend](https://api.movies-explorer.sukhov-nikita.ru/)
 
 **GitHub**
+
 [Ссылка проекта на pull request](https://github.com/Watariii/movies-explorer-frontend/pull/2);
 
