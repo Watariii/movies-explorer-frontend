@@ -22,6 +22,7 @@ Frontend: HTML, CSS, Javascript,  React, npm, git.
 ## Запуск проекта
 
 `npm run start` — запуск проекта
+
 `npm run build` — сборка для деплоя
 
 **Figma**
