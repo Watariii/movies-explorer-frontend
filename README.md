@@ -1,7 +1,5 @@
 # Проект: Movie explorer (Frontend)
 
-[Ссылка проекта на pull request](https://github.com/Watariii/movies-explorer-frontend/pull/2);
-
 Ссылка на репозиторий Frontend - https://github.com/Watariii/movies-explorer-frontend.git
 
 Ссылка на репозиторий Backend  - https://github.com/Watariii/movies-explorer-api.git
@@ -20,32 +18,24 @@ Frontend: HTML, CSS, Javascript,  React, npm, git.
     - проработал состояние интерфейса для авторизированных и неавторизированных пользователей;
     - настроил валидацию всех форм;
     - реализовал асинхронные GET, POST, PATCH, PUT, DELETE-запросы к backend.
-
-## Директории
-
-`/routes` — папка с файлами роутера  
-`/controllers` — папка с файлами контроллеров пользователя и карточки   
-`/models` — папка с файлами описания схем пользователя и карточки  
   
 ## Запуск проекта
 
 `npm run start` — запуск проекта
+
 `npm run build` — сборка для деплоя
-
-## Рабочая ссылка на демонстрацию проекта
-
-[Frontend](https://movies-explorer.sukhov-nikita.ru/)
-
-[Backend](https://api.movies-explorer.sukhov-nikita.ru/)
-
-
-
 
 **Figma**
 
 * [Ссылка на макет в Figma](https://www.figma.com/file/W0c40pyITATHHAm6E5GKlm/Diploma?type=design&node-id=932-2802&mode=design&t=LTLfCuOH2BrdIWU3-0), 
-* [Ссылка на макет в Яндекс.Диск] (https://disk.yandex.ru/d/QGtu4_vuUJFyLg)
+* [Ссылка на макет в Яндекс.Диск](https://disk.yandex.ru/d/QGtu4_vuUJFyLg)
+
+## Рабочая ссылка на демонстрацию проекта
+
+* [Frontend](https://movies-explorer.sukhov-nikita.ru/)
+
+* [Backend](https://api.movies-explorer.sukhov-nikita.ru/)
 
 **GitHub**
+[Ссылка проекта на pull request](https://github.com/Watariii/movies-explorer-frontend/pull/2);
 
-* [Ссылка проекта на GitHub] (https://github.com/Watariii/movies-explorer-frontend.git)
