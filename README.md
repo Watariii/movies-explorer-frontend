@@ -1,4 +1,4 @@
-# Проект: Movie explorer (Frontend)
+# Проект: Movie explorer (frontend)
 
 Ссылка на репозиторий Frontend - https://github.com/Watariii/movies-explorer-frontend.git
 
